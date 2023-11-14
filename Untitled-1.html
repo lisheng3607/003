@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- 功能:登录页面 ,实现用户的存储和登录;-->
+<html lang="en" manifest="clock.manifest">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>购物车登录页面</title>
+    <link rel="stylesheet" href="login.css" />
+    <script type="text/javaScript" src="./login.js"></script>
+  </head>
+  <body>
+    <div id="head">
+      <div id="middle">
+        <div id="ATM">
+          <button onclick=" passlogin()" value="">密码登录</button>
+          <button onclick="registered()" value="">免费注册</button>
+        </div>
+        <form id="form1">
+          <input
+            type="text"
+            name="username"
+            id="user1_name"
+            placeholder="请输入您注册的用户名"
+            value=""
+            pattern="^[a-zA-Z]\w{2,7}"
+            title="必须输入以字母开头,包含3个~8个字符或数字"
+          />
+
+          <input
+            type="password"
+            name="passworld"
+            id="pass1_name"
+            placeholder="密码"
+            value=""
+            pattern="\d{6}"
+            title="必须输入6个数字"
+          />
+          <input type="button" id="button1" value="注册" onclick="enroll()" />
+        </form>
+
+        <form id="form2">
+          <input
+            type="text"
+            name="username"
+            id="user"
+            placeholder="请输入用户名"
+            value=""
+            pattern="^[a-zA-Z]\w{2,7}"
+            title="必须输入以字母开头,包含3个~8个字符或数字"
+          />
+
+          <input
+            type="password"
+            name="passworld"
+            id="pass"
+            placeholder="密码"
+            value=""
+            pattern="\d{6}"
+            title="必须输入6个数字"
+          />
+          <input type="button" id="button" value="登录" onclick="login()" />
+        </form>
+        <div style="text-align: right" id="footer">
+          <span><a>忘记密码</a></span>
+          <span><a>忘记用户名</a></span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

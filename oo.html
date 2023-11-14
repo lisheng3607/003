@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flex 布局</title>
+    <style type="text/css">
+      .picdiv{
+        width: 190px; height: 190px; border-radius: 50%;border: 2px solid red;
+      }
+      .picdiv img{
+        width: 190px; height: 190px; border-radius: 50%;
+      }
+      body {
+        margin: 0;
+        height: 100vh;
+        background-color: #eee;
+      }
+      *.{
+        border: 1px solid #333;
+      } 
+      .flex {
+        display: flex;
+      }
+      .flex1 {
+        flex: 1;
+      }
+      .column {
+        flex-direction: column;
+      }
+      .baise {
+        background-color: white;
+      }
+      .mgl
+      {margin-bottom: 8px;}
+      .mg8 {
+        margin: 8px;
+      }
+      /* 右外边距 */
+      .mgr8 {
+        margin-right: 8px;
+      }
+      /* 上外边距 */
+      .mgt8 {
+        margin-top: 8px;
+      }/* 阴影 */
+      .yinYing {
+        box-shadow: rgb(0 0 0 / 20%) 0px 2px 1px -1px,
+          rgb(0 0 0 / 14%) 0px 1px 1px 0px, rgb(0 0 0 / 12%) 0px 1px 3px 0px;
+      }
+      .daohang{padding: 10px 20px;
+        border-bottom: 1px solid rgba(21, 51, 14, 0.938);
+        font-size: 14px;
+      color: #333;}
+      svg{ width: 150px; /* 相对定位 */ 
+            position: relative; /* z-index: 10; */ } 
+      #heart{
+            fill: #df1126ea; /* 填充颜色 */ 
+            stroke: var(--c);   /* stroke属性可应用于任何种类的线条，文字和元素，就像一个圆的轮廓 */ 
+            stroke-width: 40px; /* 线条宽度 */
+            stroke-dasharray: 1000; /* 设置线条为虚线，虚线的长度 */ 
+            stroke-dashoffset: 1000; /* 线条的位移 */ 
+            stroke-linecap: round; } /* 端点为圆头 */ 
+      span{ display: block; 
+            width: 24px; 
+            height: 24px; 
+            background-color: transparent; 
+            border-radius: 50%; /* 绝对定位 居中 */ 
+            position: absolute; top: 50%; 
+            left: 50%; 
+            transform: translate(-50%,-50%) scale(0); 
+            /* 设置各个方向的阴影 */ /* 通过var函数调用自定义属性--c,设置阴影颜色 */ 
+            box-shadow: 0 -160px 0 var(--c), 
+            0 160px 0 var(--c), 
+            -160px 0 0 var(--c), 
+            160px 0 0 var(--c), 
+            -120px -120px 0 var(--c), 
+            120px -120px 0 var(--c), 
+            120px 120px 0 var(--c), 
+            -120px 120px 0 var(--c); } 
+      #checkbox:checked + svg /* 勾选复选框执行各个动画 */ #heart{ 
+            animation: drawHeart 1s linear forwards; } /* 执行动画: 动画名 时长 线性的 停留在最后一帧 */ 
+      #checkbox:checked ~ span{
+                animation: blink 0.5s ease-in-out forwards;  /* 执行动画: 动画名 时长 加速后减速 停留在最后一帧 */ 
+                animation-delay: 0.85s; } /* 动画延迟时间 */ 
+      #checkbox:checked + svg{  
+                    animation: beat 1s linear forwards; } /* 执行动画: 动画名 时长 线性的 停留在最后一帧 */
+      label{ 
+                    cursor: pointer; } /* 鼠标移入,光标变小手 */ 
+                        /* 定义动画 */ /* 画心的动画 */ 
+         @keyframes drawHeart { 
+                0%{ 
+                    stroke-dashoffset: 1000; } 
+                80%{ 
+                    fill: #eee; 
+                    stroke-dashoffset: 0; } 
+                100%{ 
+                    fill: var(--c); 
+                    stroke-dashoffset: 0; } } 
+        @keyframes blink { /* 小圆点闪出的动画 */ 
+                0%{ transform: translate(-50%,-50%) scale(0.5); opacity: 0.8; }
+                50%{ 
+                    transform: translate(-50%,-50%) scale(1); 
+                    opacity: 1; } 
+                100%{ 
+                    transform: translate(-50%,-50%) scale(1.1); 
+                    opacity: 0; } } 
+         @keyframes beat { /* 心跳动的动画 */ 
+                0%{ transform: scale(1); } 
+                70%{ transform: scale(1); } 
+                80%{ 
+                    transform: scale(1.2); } 
+                100%{ transform: scale(1); }
+             }  
+      .parent-y{
+        display: flex;
+        flex-flow: column;
+      }     
+      .child2{
+        flex:1;
+        height:0;
+        width: 100%;
+        overflow-y:auto;
+      }
+      #est_switch .est_selected
+      ::after {
+    background-color: #e6f2f5;
+    border-top: 1px solid #e6f2f5;
+    border-right: 1px solid #e6f2f5;
+    border-bottom: 1px solid #e6f2f5;
+    border-left: 1px solid #e6f2f5;
+}
+    </style>
+  </head>
+  <body class="flex ">
+    <!-- 侧边栏 -->
+    <div style="width: 200px,z-index 1" class=" baise yinYing">
+      <!--头像-->
+  <div class="picdiv "><img src="https://img0.baidu.com/it/u=1638082629,1086791806&amp;fm=253&amp;fmt=auto&amp;app=120&amp;f=JPEG?w=1280&amp;h=800;"width="200px; " height="200px" alt="image ;" ></div>
+   <!--资料-->
+  <div style="justify-content:center; margin-top:30px" class="flex "><img src="12.jpg"width="30px" height="30px">
+    <div style="margin-left:10px;margin-top:5px;"class="flex;"><b>双翼的天使</b></div></div>
+      <!--资料1-->
+      <div style="justify-content:center; margin-top:20px" class="flex">星座：老虎座</div>
+       <div style="justify-content:center;margin-top:20px; " class="flex">生日:3000年13月33日</div>
+       <!--导航栏-->
+       <div style=" margin-top:20px" class="flex column">
+        <div class="daohang"><b>导航栏:</b></div>
+        <div class="daohang"><b>导航栏:</b></div>
+        <div class="daohang"><b>导航栏:</b></div>
+        <div class="daohang"><b>导航栏:</b></div></div>
+        <div style="justify-content:center;"class="flex">
+            <button id="dzs" onclick="dianZan()">0</button>  
+            <script>
+      function dianZan() {
+          let dianZanShuBiaoQian = window.document.getElementById('dzs');
+          let dianZanShu = parseInt(dianZanShuBiaoQian.innerText);
+          let xinShuZi = dianZanShu+ 1;
+          dianZanShuBiaoQian.innerText = xinShuZi;
+          return;
+      }
+    </script></div>
+     <div style="justify-content:center;"class="flex">
+      <label for="checkbox"> 
+            <input type="checkbox" id="checkbox" hidden> 
+            <svg t="1639041971928" class="icon" 
+            viewBox="0 0 1024 1024" version="1.1" 
+            xmlns="http://www.w3.org/2000/svg" 
+            p-id="3128">
+            <path d="M512 896a42.666667 42.666667 0 0 1-30.293333-12.373333l-331.52-331.946667a224.426667 224.426667 0 0 1 0-315.733333 223.573333 223.573333 0 0 1 315.733333 0L512 282.026667l46.08-46.08a223.573333 223.573333 0 0 1 315.733333 0 224.426667 224.426667 0 0 1 0 315.733333l-331.52 331.946667A42.666667 42.666667 0 0 1 512 896z" 
+            p-id="3129" id="heart">
+            </path>
+        </svg> 
+        <span></span> 
+    </label> </div>
+      <div style="justify-content:center;"class="flex">
+    <button id="dzs" onclick="dianZan()">0</button>
+    <script>
+      function dianZan(uid, bv){
+       let jilu = database.get('点赞记录',uid,bv);
+       if(jiLu){
+         let dianZanShu = database.jian('点赞数',bv,1);
+         database.shanChu('点赞记录',uid,bv);
+         document.getElementById('dzs').innerText = dianZanShu;
+       } else {
+         let dianZanShu = database.jia('点赞数',bv,1);
+         database.tianJia('点赞记录',uid,bv);
+         document.getElementById('dzs').innerText = dianZanShu;
+        }
+      }
+    </script></div></div>
+        </div></div>
+    </div><div class=" flex column">
+      <!-- 头部栏 -->
+   <div style="height: 60px;" class="baise mg8 yinYing;">
+    <div  style="text-align: center;padding: px;font-size:40px;"><b>双翼的天使</b></div>
+      </div>   <!-- 数据区 -->
+      <div style=" margin-bottom: 8px;;font-size:20px;color: white" class="flex ">
+            <!-- 数据块 -->
+          <div style="background:#000;text-align: center;line-height: 40px;margin-left:8px;" class=" yinYing flex1 mgr8 ">说说</div>
+          <div style="background:#000;height:40px;text-align: center;line-height: 40px;" class=" yinYing flex1 mgr8">日志</div>
+          <div style="background:#000;height:40px;text-align: center;line-height: 40px;" class=" yinYing flex1 mgr8">相册</div>
+          <div style="background:#000;height:40px;text-align:center;line-height: 40px" class=" yinYing flex1 mgr8">其他</div>
+          <div style="background:#000;height:40px;text-align:center;line-height: 40px;margin-right: 8px;" class=" yinYing flex1 mgr">备用</div>
+           </div>
+      <!-- 内容区 -->
+      <div  class="height: o; flex flex1 yinYing neiRong" >
+        <!-- 左区 -->
+        <div style="height: o; flex: 3" class="flex column mg8 yinYing">
+          <!-- 列表区 -->
+            <div style="overflow: auto" class="flex1 flex column parent-y;child2;">
+            <!-- 列表项 -->
+            <div style="height:160px"class="mgt baise yinYing">
+              <p style="color:rgb(64, 0, 255);">1.走走停停，已过半生，读懂了人心，看透了生活，见证了人心、验证了人性，一直都在担心会失去谁，唯独忘了问，谁有害怕失去我。</p>
+              <p style="text-align:end;color:red;margin: 60px;">-------醒自拍照</p></div>
+              <div style="height:160px"class="mgt8 baise yinYing">
+              <p style="color:rgb(64, 0, 255);">2.人间的饭吃一碗少一碗，身边的人见一面少一面，脚下的路，走一天少一天，其实人生就是一个减法，来日并不方长。</p>
+              <p style="text-align:end;color:red;margin: 60px;">-------醒自拍照</p></div>
+            <div style="height:160px"class="mgt8 baise yinYing">
+            <p style="color:rgb(64, 0, 255);">3.人这辈子，总是在等，等将来，等不忙，等下次，等有条件等有钱，可后来，等没了选择等来了遗憾。</p>
+          <p style="text-align:end;color:red;margin: 60px;">-------醒自拍照</p></div>
+            <div style="height:160px"class="mgt8 baise yinYing">
+            <p style="color:rgb(64, 0, 255);">4.人这一生，好不好都得自己走，酸甜苦辣都得自己承受，每个人都有难言之苦，每个人都有无声的泪，岁月何曾饶过谁？</p>
+          <p style="text-align:end;color:red;margin: 60px;">-------醒自拍照</p></div>
+
+            </div></div><!-- 右区 -->
+        <div style="flex: 1;" class="flex column mgr8 mgt8 yinYing">
+         <!-- 提示区 -->
+          <div style="height: 330px" class="baise yinYing">
+          <video controls width="315px";height:=310px>
+  <source src="shanggan.mp4" type="video/webm" />
+</video> 
+        </div>
+         <!-- 消息区 -->
+          <div style="height: 110px;margin-top: 100px;" class="mgt8 baise yinYing">
+            <p>今访问数：<input style="width: 80px;"></p>
+          <p>总访问数：<input style="width: 80px;"></p></div>
+          <p></p> 
+          <footer style="
+        margin-top: 10px;
+        background-color: #f1f1f1;
+        text-align: center;
+        padding: 20px;
+        font-size: 12px;
+      ">
+      <div id="est_cn" class="est_selected" tabindex="-1" aria-label="国内版">
+      ::after
+      "国内版"
+          </div>
+          <div style="background-color: #333;text-align: center;padding: 20px;font-size: 12px;">
+          <p>版权所有:782861253@qq.com</p>
+        <a href="https://782861253qq.com"></P></div>
+       </div>
+      
+  </body>
+</html>
